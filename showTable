@@ -1,0 +1,11 @@
+FLASK
+
+py側
+return render_template('simple.html',  tables=[df.to_html(classes='data')], titles=df.columns.values)
+
+
+HTML側
+{% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+{% endfor %}
