@@ -1,5 +1,7 @@
 FLASK
 
+
+#############1#################
 py側
 return render_template('simple.html',  tables=[df.to_html(classes='data')], titles=df.columns.values)
 
@@ -9,3 +11,25 @@ HTML側
             {{titles[loop.index]}}
             {{ table|safe }}
 {% endfor %}
+
+############2###################
+
+	df_values = df.values.tolist()   # 2次元配列（中身）
+	df_columns = df.columns.tolist() # 1次元配列(ヘッダー)
+	df_index = df.index.tolist()     # 1次元配列(インデックス)
+
+	return render_template('index.html', \
+		df_values = df_values, \
+		df_columns = df_columns, \
+		df_index = df_index)
+  
+<table>
+<thead>
+<tr><th>Date</th>{%- for i in Dict["df_columns"] %}<th>{{ i|e }}</th>{%- endfor %}</tr>
+</thead>
+<tbody>
+{%- for i in Dict["df_values"] %}
+<tr><td>{{ Dict["df_index"][loop.index0]|e }}</td>{% for j in i %}<td>{{ j|e }}</td>{% endfor %}</tr>
+{%- endfor %}
+</tbody>
+	</table>
